@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/apps/teachers',
     '<rootDir>/apps/vacations',
     '<rootDir>/apps/api',
+    '<rootDir>/apps/home',
   ],
 };

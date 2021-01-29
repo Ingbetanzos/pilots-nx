@@ -1,9 +1,14 @@
 {
   "npmScope": "team",
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -12,16 +17,42 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   },
   "projects": {
-    "books": { "tags": [] },
-    "books-e2e": { "tags": [], "implicitDependencies": ["books"] },
-    "teachers": { "tags": [] },
-    "teachers-e2e": { "tags": [], "implicitDependencies": ["teachers"] },
-    "vacations": { "tags": [] },
-    "vacations-e2e": { "tags": [], "implicitDependencies": ["vacations"] },
-    "api": { "tags": [] }
+    "books": {
+      "tags": []
+    },
+    "books-e2e": {
+      "tags": [],
+      "implicitDependencies": ["books"]
+    },
+    "teachers": {
+      "tags": []
+    },
+    "teachers-e2e": {
+      "tags": [],
+      "implicitDependencies": ["teachers"]
+    },
+    "vacations": {
+      "tags": []
+    },
+    "vacations-e2e": {
+      "tags": [],
+      "implicitDependencies": ["vacations"]
+    },
+    "api": {
+      "tags": []
+    },
+    "home": {
+      "tags": []
+    },
+    "home-e2e": {
+      "tags": [],
+      "implicitDependencies": ["home"]
+    }
   }
 }

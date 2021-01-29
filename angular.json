@@ -24,6 +24,20 @@
     },
     "@nrwl/angular:component": {
       "style": "scss"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
     }
   },
   "defaultProject": "books",
@@ -80,7 +94,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "books:build"
+            "browserTarget": "books:build",
+            "proxyConfig": "apps/books/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -135,6 +150,235 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/books-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "teachers": {
+      "root": "apps/teachers",
+      "sourceRoot": "apps/teachers/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/teachers",
+            "index": "apps/teachers/src/index.html",
+            "main": "apps/teachers/src/main.tsx",
+            "polyfills": "apps/teachers/src/polyfills.ts",
+            "tsConfig": "apps/teachers/tsconfig.app.json",
+            "assets": [
+              "apps/teachers/src/favicon.ico",
+              "apps/teachers/src/assets"
+            ],
+            "styles": ["apps/teachers/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/teachers/src/environments/environment.ts",
+                  "with": "apps/teachers/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "teachers:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "teachers:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/teachers/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/teachers"],
+          "options": {
+            "jestConfig": "apps/teachers/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "teachers-e2e": {
+      "root": "apps/teachers-e2e",
+      "sourceRoot": "apps/teachers-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/teachers-e2e/cypress.json",
+            "tsConfig": "apps/teachers-e2e/tsconfig.e2e.json",
+            "devServerTarget": "teachers:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "teachers:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/teachers-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "vacations": {
+      "projectType": "application",
+      "root": "apps/vacations",
+      "sourceRoot": "apps/vacations/src",
+      "architect": {
+        "build": {
+          "builder": "@nx-plus/vue:browser",
+          "options": {
+            "dest": "dist/apps/vacations",
+            "index": "apps/vacations/public/index.html",
+            "main": "apps/vacations/src/main.ts",
+            "tsConfig": "apps/vacations/tsconfig.app.json"
+          },
+          "configurations": {
+            "production": {
+              "mode": "production",
+              "filenameHashing": true,
+              "productionSourceMap": true,
+              "css": {
+                "extract": true,
+                "sourceMap": false
+              }
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nx-plus/vue:dev-server",
+          "options": {
+            "browserTarget": "vacations:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "vacations:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/vacations/**/*.{ts,tsx,vue}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/vacations"],
+          "options": {
+            "jestConfig": "apps/vacations/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "vacations-e2e": {
+      "root": "apps/vacations-e2e",
+      "sourceRoot": "apps/vacations-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/vacations-e2e/cypress.json",
+            "tsConfig": "apps/vacations-e2e/tsconfig.e2e.json",
+            "devServerTarget": "vacations:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "vacations:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/vacations-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/api/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/api"],
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
